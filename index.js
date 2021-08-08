@@ -58,8 +58,43 @@ async function init() {
 
     const teamManager = await createManager();
 
+    // Creates the rest of the team
+    const createEmployees = async () => {
+        let running = true;   // Until user selects "Nobody", run program
+        let otherEmployees = [];
+    
+        while (running) {
+            // Ask who they want to add
+            let menuAnswer = await inquirer.prompt(addEmployeeQuestion)
+    
+            if (menuAnswer.addEmployee == "Engineer") {
+                console.log("\nEnter the following information about the Engineer: ")
+                let answers = await inquirer.prompt(engineerQuestions);
+                const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+                otherEmployees.push(engineer);
+            }
+    
+            else if (menuAnswer.addEmployee == "Intern") {
+                console.log("\nEnter the following information about the Intern: ")
+                let answers = await inquirer.prompt(internQuestions);
+                const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+                otherEmployees.push(intern);
+            }
+    
+            else if (menuAnswer.addEmployee == "Nobody") {
+                running = false;
+            }
+        }
+    
+        return otherEmployees
+    }
+
     // Array for all employees on the team
-    const team = [teamManager];
+    const teamMembers = await createEmployees();
+    teamMembers.push(teamManager)  // Add manager to team of Engineers/Interns
+
+    // Sort array by employee ID
+    teamMembers.sort((a, b) => (a.id > b.id) ? 1 : -1)
 
     // Creates employee cards for each employee
     const employeeCards = (team) => {
@@ -68,7 +103,7 @@ async function init() {
     }
 
     // String that holds HTML code for all employee cards
-    const cardCode = await employeeCards(team);
+    const cardCode = await employeeCards(teamMembers);
 
     // Generates entire HTML code
     const createHTMLCode = (cardCode) => {
@@ -134,7 +169,6 @@ async function init() {
 
     // Generate html code for the entire webpage
     const htmlCode = await createHTMLCode(cardCode);
-    console.log(htmlCode)
 
     // Write code to file
     writeFileAsync('./dist/index.html', htmlCode)
