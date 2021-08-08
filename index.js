@@ -49,6 +49,17 @@ const addEmployeeQuestion = [
 
 function init() {
     console.log("Hello World");
+
+    // Creates the manager for the team based on input
+    const createManager = () => {
+        console.log("Enter the following information about the Manager: ")
+        let answers = inquirer.prompt(managerQuestions);
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+        return manager;
+    }
+
+    const teamManager = createManager();
+
 }
 
 init();
