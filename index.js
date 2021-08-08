@@ -48,8 +48,6 @@ const addEmployeeQuestion = [
 ];
 
 function init() {
-    console.log("Hello World");
-
     // Creates the manager for the team based on input
     const createManager = () => {
         console.log("Enter the following information about the Manager: ")
@@ -60,6 +58,19 @@ function init() {
 
     const teamManager = createManager();
 
+    // Array for all employees on the team
+    const team = [teamManager];
+
+    // Creates employee cards for each employee
+    const employeeCards = (team) => {
+        const cards = team.map(employee => employee.card).join('')
+        return cards;
+    }
+
+    // String that holds HTML code for all employee cards
+    const cardCode = employeeCards(team);
+
+    console.log(cardCode);
 }
 
 init();
