@@ -47,16 +47,16 @@ const addEmployeeQuestion = [
     }
 ];
 
-function init() {
+async function init() {
     // Creates the manager for the team based on input
-    const createManager = () => {
+    const createManager = async () => {
         console.log("Enter the following information about the Manager: ")
-        let answers = inquirer.prompt(managerQuestions);
+        let answers = await inquirer.prompt(managerQuestions);
         const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
         return manager;
     }
 
-    const teamManager = createManager();
+    const teamManager = await createManager();
 
     // Array for all employees on the team
     const team = [teamManager];
@@ -68,9 +68,7 @@ function init() {
     }
 
     // String that holds HTML code for all employee cards
-    const cardCode = employeeCards(team);
-
-    console.log(cardCode);
+    const cardCode = await employeeCards(team);
 }
 
 init();
