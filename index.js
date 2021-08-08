@@ -136,6 +136,9 @@ async function init() {
     const htmlCode = await createHTMLCode(cardCode);
     console.log(htmlCode)
 
+    // Write code to file
+    writeFileAsync('./dist/index.html', htmlCode)
+
 }
 
 init();
