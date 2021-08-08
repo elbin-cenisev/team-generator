@@ -46,3 +46,9 @@ const addEmployeeQuestion = [
         choices: ["Engineer", "Intern", "Nobody"]
     }
 ];
+
+function init() {
+    console.log("Hello World");
+}
+
+init();
