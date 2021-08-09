@@ -9,3 +9,6 @@ HTML, CSS, Javascript, Node, Inquirer, Jest
 # Walkthrough Video
 https://drive.google.com/file/d/1XuEjgdHy91_jZuyro5kz4rDeUyX20fyb/view
 
+# License
+MIT License
+
